@@ -1,5 +1,4 @@
 Package: helloworld
-Version: 1.0.1
 Maintainer: Anton Sochnev <an.sochnev@yandex.ru>
 Architecture: amd64
 Description: hello world printer with version

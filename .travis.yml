@@ -7,3 +7,4 @@ script:
   - make
   - ./helloworld
   - make test
+  - make deb

@@ -3,5 +3,5 @@
 #include "lib.h"
 
 int main() {
-    std::cout << "Hello, World v1.0." << version() << std::endl;
+    std::cout << "Hello, World v1.0.8" << version() << std::endl;
 }

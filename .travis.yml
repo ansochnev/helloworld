@@ -8,3 +8,9 @@ script:
   - ./helloworld
   - make test
   - make deb
+
+deploy:
+  provider: script
+  skip_cleanup: true
+  script:
+    - curl -T helloworld-1.0.$TRAVIS_BUILD_NUMBER.deb -uansochnev:$BINTRAY_API_KEY "https://api.bintray.com/content/ansochnev/otus-cpp/helloworld/$TRAVIS_BUILD_NUMBER/pool/main/h1/helloworld-1.0.$TRAVIS_BUILD_NUMBER.deb;deb_distribution=homework;deb_component=main;deb_architecture=amd64;publish=1"

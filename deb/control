@@ -1,5 +1,0 @@
-Package: helloworld
-Maintainer: Anton Sochnev <an.sochnev@yandex.ru>
-Architecture: amd64
-Description: hello world printer with version
- The first homework for otus-cpp course.

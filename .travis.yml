@@ -4,10 +4,10 @@ before_script:
   - sudo apt-get install libboost-test-dev -y
 
 script:
-  - make
-  - ./helloworld
-  - make test
-  - make deb
+  - cmake .
+  - cmake --build .
+  - cmake --build . --target test
+  - cmake --build . --target package
 
 deploy:
   provider: script

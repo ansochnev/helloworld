@@ -29,7 +29,6 @@ add_subdirectory("${CMAKE_BINARY_DIR}/googletest-src"
 project(helloworld VERSION 1.0.$ENV{TRAVIS_BUILD_NUMBER})
 
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
-find_package(GTest REQUIRED)
 
 configure_file(version.h.in version.h)
 
@@ -64,14 +63,6 @@ set_target_properties(gtest_version PROPERTIES
 target_link_libraries(helloworld_cli helloworld)
 target_link_libraries(test_version ${Boost_LIBRARIES} helloworld)
 target_link_libraries(gtest_version helloworld gtest)
-
-
-target_link_libraries(gtest_version
-    ${GTEST_LIBRARIES}
-    # For linking with static libgtest.a:
-    # pthread
-    helloworld
-)
 
 
 install(TARGETS helloworld_cli RUNTIME DESTINATION bin)

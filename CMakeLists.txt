@@ -1,6 +1,30 @@
 cmake_minimum_required(VERSION 3.2)
 
-message("${CMAKE_INSTALL_PREFIX}")
+################################################################################
+# See https://github.com/google/googletest/tree/master/googletest
+
+# Download and unpack googletest at configure time
+configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
+execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
+    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/googletest-download" )
+execute_process(COMMAND "${CMAKE_COMMAND}" --build .
+    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/googletest-download" )
+
+# Prevent GoogleTest from overriding our compiler/linker options
+# when building with Visual Studio
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
+# Add googletest directly to our build. This adds
+# the following targets: gtest, gtest_main
+add_subdirectory("${CMAKE_BINARY_DIR}/googletest-src"
+                 "${CMAKE_BINARY_DIR}/googletest-build")
+
+# The gtest targets carry header search path dependencies 
+# automatically when using CMake 2.8.11 or later. 
+
+# Now simply link your own targets against gtest.
+################################################################################
+
 
 project(helloworld VERSION 1.0.$ENV{TRAVIS_BUILD_NUMBER})
 
@@ -15,8 +39,8 @@ add_executable(test_version test_version.cpp)
 add_executable(gtest_version gtest_version.cpp)
 
 set_target_properties(
-    helloworld_cli helloworld test_version gtest_version PROPERTIES
-
+        helloworld_cli helloworld test_version gtest_version PROPERTIES
+    
     CXX_STANDARD 14
     CXX_STANDARD_REQUIRED ON
     COMPILE_OPTIONS "-Wpedantic;-Wall;-Wextra"
@@ -35,17 +59,12 @@ set_target_properties(test_version PROPERTIES
 set_target_properties(gtest_version PROPERTIES
     # Use version.h from the binary directory
     INCLUDE_DIRECTORIES ${CMAKE_CURRENT_BINARY_DIR}
-    INCLUDE_DIRECTORIES ${GTEST_INCLUDE_DIRS}
 )
 
-target_link_libraries(helloworld_cli
-    helloworld
-)
+target_link_libraries(helloworld_cli helloworld)
+target_link_libraries(test_version ${Boost_LIBRARIES} helloworld)
+target_link_libraries(gtest_version helloworld gtest)
 
-target_link_libraries(test_version
-    ${Boost_LIBRARIES}
-    helloworld
-)
 
 target_link_libraries(gtest_version
     ${GTEST_LIBRARIES}

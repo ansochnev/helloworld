@@ -3,7 +3,7 @@ dist: xenial
 language: cpp
 
 before_script:
-  - sudo apt update
+  - sudo apt-get install libboost-test-dev
 
 script:
   - cmake .

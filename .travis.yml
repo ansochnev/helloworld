@@ -2,6 +2,12 @@ language: cpp
 
 before_script:
   - sudo apt-get install libboost-test-dev -y
+  - sudo apt-get install libgtest-dev -y
+  - mkdir gbuild; cd gbuild
+  - cmake -DBUILD_SHARED_LIBS=ON /usr/src/gtest
+  - cmake --build .
+  - sudo cmake --build . --target install
+  - cd ..
 
 script:
   - cmake .

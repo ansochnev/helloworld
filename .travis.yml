@@ -1,7 +1,16 @@
+dist: xenial
+
 language: cpp
 
 before_script:
+  - sudo apt update
   - sudo apt-get install libboost-test-dev -y
+  - git clone https://github.com/google/googletest
+  - mkdir gbuild; cd gbuild
+  - cmake -DBUILD_SHARED_LIBS=ON ../googletest
+  - cmake --build .
+  - sudo make install
+  - cd ..
 
 script:
   - cmake .

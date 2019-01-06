@@ -6,7 +6,7 @@ before_script:
   - mkdir gbuild; cd gbuild
   - cmake -DBUILD_SHARED_LIBS=ON /usr/src/gtest
   - cmake --build .
-  - sudo cmake --build . --target install
+  - cmake --build . --target install
   - cd ..
 
 script:

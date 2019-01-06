@@ -9,7 +9,7 @@ before_script:
   - mkdir gbuild; cd gbuild
   - cmake -DBUILD_SHARED_LIBS=ON ../googletest
   - cmake --build .
-  - cmake --build . --target install
+  - sudo cmake --build . --target install
   - cd ..
 
 script:
